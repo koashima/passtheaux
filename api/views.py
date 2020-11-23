@@ -12,7 +12,7 @@ class RoomView(generics.CreateAPIView):
     serializer_class = RoomSerializer
 
 
-class CreateRoomView(APIView);
+class CreateRoomView(APIView):
     serializer_class = CreateRoomSerializer
     
     def post(self, request, format=None):
