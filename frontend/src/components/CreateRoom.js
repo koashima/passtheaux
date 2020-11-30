@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import {
   Button,
   Grid,
@@ -16,6 +16,7 @@ const CreateRoom = () => {
   let defaultVotes = 2;
   let [guestCanPause, setGuestCanPause] = useState(true);
   let [votesToSkip, setVotesToSkip] = useState(defaultVotes);
+  const history = useHistory();
 
   const handleCreateRoom = () => {
     const requestOptions = {
@@ -28,7 +29,7 @@ const CreateRoom = () => {
     };
     fetch('api/create-room', requestOptions)
       .then((response) => response.json())
-      .then((data) => console.log(data));
+      .then((data) => history.push('/room/' + data.code));
   };
 
   return (
