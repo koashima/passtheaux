@@ -33,13 +33,19 @@ const CreateRoom = () => {
   };
 
   return (
-    <Grid container spacing={1}>
-      <Grid item xs={12} align="center">
+    <Grid
+      container
+      spacing={1}
+      direction="column"
+      justify="center"
+      alignItems="center"
+    >
+      <Grid item xs={12}>
         <Typography component="h4" variant="h4">
           CREATE ROOM
         </Typography>
       </Grid>
-      <Grid item xs={12} align="center">
+      <Grid item xs={12}>
         <FormControl component="fieldset">
           <FormHelperText>
             <div align="center">GUEST CONTROL OF PLAYBACK STATE</div>
@@ -66,7 +72,7 @@ const CreateRoom = () => {
           </RadioGroup>
         </FormControl>
       </Grid>
-      <Grid item xs={12} align="center">
+      <Grid item xs={12}>
         <FormControl>
           <TextField
             required={true}
@@ -82,12 +88,12 @@ const CreateRoom = () => {
           </FormHelperText>
         </FormControl>
       </Grid>
-      <Grid item xs={12} align="center">
+      <Grid item xs={12}>
         <Button color="primary" variant="contained" onClick={handleCreateRoom}>
           CREATE ROOM
         </Button>
       </Grid>
-      <Grid item xs={12} align="center">
+      <Grid item xs={12}>
         <Button color="secondary" variant="contained" to="/" component={Link}>
           BACK
         </Button>

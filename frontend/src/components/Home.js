@@ -19,7 +19,6 @@ const Home = () => {
         <Route path="/create" component={CreateRoom} />
         <Route path="/room/:roomCode" component={Room} />
       </Switch>
-
     </Router>
   );
 };

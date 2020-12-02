@@ -17,12 +17,13 @@ const Room = (props) => {
         setIsHost(data.is_host);
       });
   };
-  getRoomDetails()
+  getRoomDetails();
   return (
     <div>
-      <div>{votesToSkip}</div>
-      <div>{guestCanPause.toString()}</div>
-      <div>{isHost.toString()}</div>
+      <h1>CODE: {roomCode}</h1>
+      <h1>VOTES TO SKIP: {votesToSkip}</h1>
+      <h1>GUEST CAN PAUSE: {guestCanPause.toString()}</h1>
+      <h1>HOST: {isHost.toString()}</h1>
     </div>
   );
 };
