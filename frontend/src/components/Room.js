@@ -1,5 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
+import { Grid, Button, Typography } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 
 const Room = (props) => {
   let [votesToSkip, setVotesToSkip] = useState(2);
@@ -19,12 +21,39 @@ const Room = (props) => {
   };
   getRoomDetails();
   return (
-    <div>
-      <h1>CODE: {roomCode}</h1>
-      <h1>VOTES TO SKIP: {votesToSkip}</h1>
-      <h1>GUEST CAN PAUSE: {guestCanPause.toString()}</h1>
-      <h1>HOST: {isHost.toString()}</h1>
-    </div>
+    <Grid
+      container
+      spacing={1}
+      direction="column"
+      justify="center"
+      alignItems="center"
+    >
+      <Grid item xs={12}>
+        <Typography variant="h4" component="h4">
+          CODE: {roomCode}
+        </Typography>
+      </Grid>
+      <Grid item xs={12}>
+        <Typography variant="h4" component="h4">
+          VOTES TO SKIP: {votesToSkip}
+        </Typography>
+      </Grid>
+      <Grid item xs={12}>
+        <Typography variant="h4" component="h4">
+          GUEST CAN PAUSE: {guestCanPause.toString()}
+        </Typography>
+      </Grid>
+      <Grid item xs={12}>
+        <Typography variant="h4" component="h4">
+          HOST: {isHost.toString()}
+        </Typography>
+      </Grid>
+      <Grid item xs={12}>
+        <Button variant="contained" color="secondary" to="/" component={Link}>
+          LEAVE
+        </Button>
+      </Grid>
+    </Grid>
   );
 };
 
