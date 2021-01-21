@@ -7,7 +7,6 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link,
   Redirect,
 } from 'react-router-dom';
 import Home from './Home';
@@ -23,20 +22,24 @@ const App = () => {
           setRoomCode(data.code);
         });
     };
-    return () => {
-      fetchData();
-    };
+    fetchData();
   }, []);
 
   return (
     <>
       <Router>
         <Switch>
-          {roomCode ? (
-            <Redirect to={`/room/${roomCode}`} />
-          ) : (
-            <Route exact path="/" component={Home} />
-          )}
+          <Route
+            exact
+            path="/"
+            component={() => {
+              return roomCode ? (
+                <Redirect to={`/room/${roomCode}`} />
+              ) : (
+                <Route exact path="/" component={Home} />
+              );
+            }}
+          />
 
           <Route path="/join" component={RoomJoin} />
           <Route path="/create" component={CreateRoom} />
@@ -52,3 +55,9 @@ export default App;
 const appDiv = document.getElementById('app');
 
 render(<App />, appDiv);
+
+// {roomCode ? (
+//   <Redirect to={`/room/${roomCode}`} />
+// ) : (
+//   <Route exact path="/" component={Home} />
+// )}
