@@ -1,25 +1,42 @@
 import React from 'react';
 import { useState } from 'react';
 import { Grid, Button, Typography } from '@material-ui/core';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 const Room = (props) => {
   let [votesToSkip, setVotesToSkip] = useState(2);
   let [guestCanPause, setGuestCanPause] = useState(false);
   let [isHost, setIsHost] = useState(false);
-
+  let history = useHistory();
   let roomCode = props.match.params.roomCode;
 
   const getRoomDetails = () => {
     fetch('/api/get-room' + '?code=' + roomCode)
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          history.push('/');
+        }
+        return response.json();
+      })
       .then((data) => {
         setVotesToSkip(data.votes_to_skip);
         setGuestCanPause(data.guest_can_pause);
         setIsHost(data.is_host);
       });
   };
+  
   getRoomDetails();
+
+  const handleLeaveRoom = () => {
+    const reqOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+    };
+    fetch('/api/leave-room', reqOptions).then((_response) => {
+      history.push('/');
+    });
+  };
+
   return (
     <Grid
       container
@@ -49,7 +66,7 @@ const Room = (props) => {
         </Typography>
       </Grid>
       <Grid item xs={12}>
-        <Button variant="contained" color="secondary" to="/" component={Link}>
+        <Button variant="contained" color="secondary" onClick={handleLeaveRoom}>
           LEAVE
         </Button>
       </Grid>
