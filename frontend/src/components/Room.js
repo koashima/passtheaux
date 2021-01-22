@@ -24,7 +24,7 @@ const Room = (props) => {
         setIsHost(data.is_host);
       });
   };
-  
+
   getRoomDetails();
 
   const handleLeaveRoom = () => {

@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { render } from 'react-dom';
-import RoomJoin from './RoomJoin';
-import CreateRoom from './CreateRoom';
-import Room from './Room';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Redirect,
 } from 'react-router-dom';
+import RoomJoin from './RoomJoin';
+import CreateRoom from './CreateRoom';
+import Room from './Room';
 import Home from './Home';
+import useRoomCode from '../hooks/use-roomCode';
 
 const App = () => {
-  const [roomCode, setRoomCode] = useState(null);
+  const { roomCode, setRoomCode } = useRoomCode();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -55,9 +56,3 @@ export default App;
 const appDiv = document.getElementById('app');
 
 render(<App />, appDiv);
-
-// {roomCode ? (
-//   <Redirect to={`/room/${roomCode}`} />
-// ) : (
-//   <Route exact path="/" component={Home} />
-// )}
