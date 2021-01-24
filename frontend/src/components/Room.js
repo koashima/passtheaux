@@ -1,14 +1,19 @@
 import React from 'react';
-import { useState } from 'react';
 import { Grid, Button, Typography } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
+import { useRoom } from '../hooks/use-room';
 
 const Room = (props) => {
-  let [votesToSkip, setVotesToSkip] = useState(2);
-  let [guestCanPause, setGuestCanPause] = useState(false);
-  let [isHost, setIsHost] = useState(false);
-  let history = useHistory();
-  let roomCode = props.match.params.roomCode;
+  const {
+    votesToSkip,
+    setVotesToSkip,
+    guestCanPause,
+    setGuestCanPause,
+    isHost,
+    setIsHost,
+  } = useRoom();
+  const history = useHistory();
+  const roomCode = props.match.params.roomCode;
 
   const getRoomDetails = () => {
     fetch('/api/get-room' + '?code=' + roomCode)

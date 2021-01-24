@@ -92,6 +92,8 @@
 
 /*! export Redirect [provided] [no usage info] [missing usage info prevents renaming] -> ./node_modules/react-router/esm/react-router.js .Redirect */
 
+/*! export RoomContext [provided] [no usage info] [missing usage info prevents renaming] */
+
 /*! export Route [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export Route [provided] [no usage info] [missing usage info prevents renaming] -> ./node_modules/react-router/esm/react-router.js .Route */
@@ -518,6 +520,10 @@
 
 /*! export useRef [provided] [no usage info] [provision prevents renaming (no use info)] -> ./node_modules/react/cjs/react.production.min.js .useRef */
 
+/*! export useRoom [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export useRoomState [provided] [no usage info] [missing usage info prevents renaming] */
+
 /*! export useRouteMatch [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export useRouteMatch [provided] [no usage info] [missing usage info prevents renaming] -> ./node_modules/react-router/esm/react-router.js .useRouteMatch */
@@ -578,6 +584,10 @@
   !*** ./src/components/App.js ***!
   \*******************************/
 
+/*!*******************************!*\
+  !*** ./src/hooks/use-room.js ***!
+  \*******************************/
+
 /*!********************************!*\
   !*** ./src/components/Home.js ***!
   \********************************/
@@ -585,10 +595,6 @@
 /*!********************************!*\
   !*** ./src/components/Room.js ***!
   \********************************/
-
-/*!***********************************!*\
-  !*** ./src/hooks/use-roomCode.js ***!
-  \***********************************/
 
 /*!************************************!*\
   !*** ./src/components/RoomJoin.js ***!

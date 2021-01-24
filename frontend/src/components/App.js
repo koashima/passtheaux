@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { render } from 'react-dom';
 import {
   BrowserRouter as Router,
@@ -10,10 +10,11 @@ import RoomJoin from './RoomJoin';
 import CreateRoom from './CreateRoom';
 import Room from './Room';
 import Home from './Home';
-import useRoomCode from '../hooks/use-roomCode';
+import { RoomContext, useRoomState } from '../hooks/use-room';
 
 const App = () => {
-  const { roomCode, setRoomCode } = useRoomCode();
+
+  const { roomCode, setRoomCode } = useRoomState();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -26,8 +27,9 @@ const App = () => {
     fetchData();
   }, []);
 
+  const room = useRoomState()
   return (
-    <>
+    <RoomContext.Provider value={room}>
       <Router>
         <Switch>
           <Route
@@ -47,7 +49,7 @@ const App = () => {
           <Route path="/room/:roomCode" component={Room} />
         </Switch>
       </Router>
-    </>
+    </RoomContext.Provider>
   );
 };
 
