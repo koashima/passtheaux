@@ -7,7 +7,9 @@ export function useRoomState() {
   const [votesToSkip, setVotesToSkip] = useState(2);
   const [guestCanPause, setGuestCanPause] = useState(false);
   const [isHost, setIsHost] = useState(false);
-  
+  const clearRoomCode = () => {
+    setRoomCode(null)
+  }
   return {
     roomCode,
     setRoomCode,
@@ -17,6 +19,7 @@ export function useRoomState() {
     setGuestCanPause,
     isHost,
     setIsHost,
+    clearRoomCode
   };
 }
 

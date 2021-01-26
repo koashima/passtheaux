@@ -5,6 +5,7 @@ import { useRoom } from '../hooks/use-room';
 
 const Room = (props) => {
   const {
+    setRoomCode,
     votesToSkip,
     setVotesToSkip,
     guestCanPause,
@@ -19,6 +20,7 @@ const Room = (props) => {
     fetch('/api/get-room' + '?code=' + roomCode)
       .then((response) => {
         if (!response.ok) {
+          setRoomCode(null);
           history.push('/');
         }
         return response.json();
