@@ -1,10 +1,33 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+  Link,
+} from 'react-router-dom';
 import { Grid, Button, ButtonGroup, Typography } from '@material-ui/core';
+import RoomJoin from './RoomJoin';
+import CreateRoom from './CreateRoom';
+import Room from './Room';
+import { useRoom } from '../hooks/use-room';
 
 const Home = () => {
-  return (
-    <div>
+  const { roomCode, setRoomCode } = useRoom();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await fetch('/api/user-in-room')
+        .then((response) => response.json())
+        .then((data) => {
+          setRoomCode(data.code);
+        });
+    };
+    fetchData();
+  }, []);
+
+  function renderHome() {
+    return (
       <Grid
         container
         spacing={3}
@@ -28,7 +51,29 @@ const Home = () => {
           </ButtonGroup>
         </Grid>
       </Grid>
-    </div>
+    );
+  }
+
+  return (
+    <Router>
+      <Switch>
+        <Route
+          exact
+          path="/"
+          component={() => {
+            return roomCode ? (
+              <Redirect to={`/room/${roomCode}`} />
+            ) : (
+              renderHome()
+            );
+          }}
+        />
+
+        <Route path="/join" component={RoomJoin} />
+        <Route path="/create" component={CreateRoom} />
+        <Route path="/room/:roomCode" component={Room} />
+      </Switch>
+    </Router>
   );
 };
 
