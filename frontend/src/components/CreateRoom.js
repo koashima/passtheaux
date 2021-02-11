@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import {useRoom} from '../hooks/use-room'
+import { useRoom } from '../hooks/use-room';
 import {
   Button,
   Grid,
@@ -42,10 +42,66 @@ const CreateRoom = () => {
       .then((data) => history.push('/room/' + data.code));
   };
 
-  const createButtons = () => {
+  const handleUpdateRoom = () => {
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        votes_to_skip: votesToSkip,
+        guest_can_pause: guestCanPause,
+      }),
+    };
+    fetch('api/create-room', requestOptions)
+      .then((response) => response.json())
+      .then((data) => history.push('/room/' + data.code));
+  };
 
-  }
-  
+  const createButtons = () => {
+    return (
+      <>
+        <Grid item xs={12}>
+          <Button
+            color="primary"
+            variant="contained"
+            onClick={handleCreateRoom}
+          >
+            CREATE ROOM
+          </Button>
+        </Grid>
+        <Grid item xs={12}>
+          <Button color="secondary" variant="contained" to="/" component={Link}>
+            BACK
+          </Button>
+        </Grid>
+      </>
+    );
+  };
+
+  const updateButtons = () => {
+    return (
+      <>
+        <Grid item xs={12}>
+          <Button
+            color="primary"
+            variant="contained"
+            onClick={handleUpdateRoom}
+          >
+            UPDATE ROOM
+          </Button>
+        </Grid>
+        <Grid item xs={12}>
+          <Button
+            color="secondary"
+            variant="contained"
+            onClick={() => setSettings(false)}
+          >
+            CANCEL
+          </Button>
+        </Grid>
+      </>
+    );
+  };
+
   return (
     <Grid
       container
@@ -56,7 +112,7 @@ const CreateRoom = () => {
     >
       <Grid item xs={12}>
         <Typography component="h4" variant="h4">
-          CREATE ROOM
+          {settings ? 'UPDATE ROOM' : 'CREATE ROOM'}
         </Typography>
       </Grid>
       <Grid item xs={12}>
@@ -102,16 +158,7 @@ const CreateRoom = () => {
           </FormHelperText>
         </FormControl>
       </Grid>
-      <Grid item xs={12}>
-        <Button color="primary" variant="contained" onClick={handleCreateRoom}>
-          CREATE ROOM
-        </Button>
-      </Grid>
-      <Grid item xs={12}>
-        <Button color="secondary" variant="contained" to="/" component={Link}>
-          BACK
-        </Button>
-      </Grid>
+      {settings === true ? updateButtons() : createButtons()}
     </Grid>
   );
 };

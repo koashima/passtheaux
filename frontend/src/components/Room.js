@@ -47,10 +47,6 @@ const Room = (props) => {
     });
   };
 
-  const showSettings = () => {
-    return null
-  };
-
   const showSettingsButton = () => {
     return (
       <Grid item xs={12} align="center">
@@ -64,15 +60,12 @@ const Room = (props) => {
       </Grid>
     );
   };
-  
+
   if (settings) {
-    return (
-      <CreateRoom />
-    )
+    return <CreateRoom />;
   }
 
   return (
-
     <Grid
       container
       spacing={1}
