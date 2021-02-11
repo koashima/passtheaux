@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import {useRoom} from '../hooks/use-room'
 import {
   Button,
   Grid,
@@ -13,9 +14,18 @@ import {
 } from '@material-ui/core/';
 
 const CreateRoom = () => {
-  let defaultVotes = 2;
-  let [guestCanPause, setGuestCanPause] = useState(true);
-  let [votesToSkip, setVotesToSkip] = useState(defaultVotes);
+  const {
+    setRoomCode,
+    votesToSkip,
+    setVotesToSkip,
+    guestCanPause,
+    setGuestCanPause,
+    isHost,
+    setIsHost,
+    settings,
+    setSettings,
+  } = useRoom();
+
   const history = useHistory();
 
   const handleCreateRoom = () => {
@@ -32,6 +42,10 @@ const CreateRoom = () => {
       .then((data) => history.push('/room/' + data.code));
   };
 
+  const createButtons = () => {
+
+  }
+  
   return (
     <Grid
       container
@@ -77,7 +91,7 @@ const CreateRoom = () => {
           <TextField
             required={true}
             type="number"
-            defaultValue={defaultVotes}
+            defaultValue={votesToSkip}
             inputProps={{ min: 1, style: { textAlign: 'center' } }}
             onChange={(e) => {
               setVotesToSkip(e.target.value);

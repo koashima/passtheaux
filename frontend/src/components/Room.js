@@ -2,6 +2,7 @@ import React from 'react';
 import { Grid, Button, Typography } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import { useRoom } from '../hooks/use-room';
+import CreateRoom from './CreateRoom';
 
 const Room = (props) => {
   const {
@@ -12,6 +13,8 @@ const Room = (props) => {
     setGuestCanPause,
     isHost,
     setIsHost,
+    settings,
+    setSettings,
   } = useRoom();
   const history = useHistory();
   const roomCode = props.match.params.roomCode;
@@ -44,7 +47,32 @@ const Room = (props) => {
     });
   };
 
+  const showSettings = () => {
+    return null
+  };
+
+  const showSettingsButton = () => {
+    return (
+      <Grid item xs={12} align="center">
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => setSettings(true)}
+        >
+          SETTINGS
+        </Button>
+      </Grid>
+    );
+  };
+  
+  if (settings) {
+    return (
+      <CreateRoom />
+    )
+  }
+
   return (
+
     <Grid
       container
       spacing={1}
@@ -72,6 +100,9 @@ const Room = (props) => {
           HOST: {isHost.toString()}
         </Typography>
       </Grid>
+
+      {isHost ? showSettingsButton() : null}
+
       <Grid item xs={12}>
         <Button variant="contained" color="secondary" onClick={handleLeaveRoom}>
           LEAVE

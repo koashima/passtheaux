@@ -5,8 +5,9 @@ export const RoomContext = createContext();
 export function useRoomState() {
   const [roomCode, setRoomCode] = useState(null);
   const [votesToSkip, setVotesToSkip] = useState(2);
-  const [guestCanPause, setGuestCanPause] = useState(false);
+  const [guestCanPause, setGuestCanPause] = useState(true);
   const [isHost, setIsHost] = useState(false);
+  const [settings, setSettings ] = useState(false)
   const clearRoomCode = () => {
     setRoomCode(null)
   }
@@ -19,7 +20,9 @@ export function useRoomState() {
     setGuestCanPause,
     isHost,
     setIsHost,
-    clearRoomCode
+    clearRoomCode,
+    settings,
+    setSettings,
   };
 }
 
