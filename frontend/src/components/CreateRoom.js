@@ -11,19 +11,20 @@ import {
   Radio,
   RadioGroup,
   Typography,
+  Collapse,
 } from '@material-ui/core/';
 
 const CreateRoom = () => {
   const {
-    setRoomCode,
+    roomCode,
     votesToSkip,
     setVotesToSkip,
     guestCanPause,
     setGuestCanPause,
-    isHost,
-    setIsHost,
     settings,
     setSettings,
+    message,
+    setMessage,
   } = useRoom();
 
   const history = useHistory();
@@ -44,16 +45,19 @@ const CreateRoom = () => {
 
   const handleUpdateRoom = () => {
     const requestOptions = {
-      method: 'POST',
+      method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         votes_to_skip: votesToSkip,
         guest_can_pause: guestCanPause,
+        code: roomCode,
       }),
     };
-    fetch('api/create-room', requestOptions)
-      .then((response) => response.json())
-      .then((data) => history.push('/room/' + data.code));
+    fetch('api/update-room', requestOptions).then((response) =>
+      response.ok
+        ? setMessage('Room updated successfully')
+        : setMessage('Error updating room')
+    );
   };
 
   const createButtons = () => {
@@ -111,14 +115,24 @@ const CreateRoom = () => {
       alignItems="center"
     >
       <Grid item xs={12}>
+        <Collapse
+          in={message != ''}
+          style={{ fontSize: 'x-large', color: 'F50057' }}
+        >
+          {message}
+        </Collapse>
+      </Grid>
+      <Grid item xs={12}>
         <Typography component="h4" variant="h4">
           {settings ? 'UPDATE ROOM' : 'CREATE ROOM'}
         </Typography>
       </Grid>
       <Grid item xs={12}>
         <FormControl component="fieldset">
-          <FormHelperText>
-            <div align="center">GUEST CONTROL OF PLAYBACK STATE</div>
+          <FormHelperText classes={{ root: 'swag' }}>
+            <div align="center" style={{ color: '#f5f5f5' }}>
+              GUEST CONTROL OF PLAYBACK STATE
+            </div>
           </FormHelperText>
           <RadioGroup
             row
@@ -148,12 +162,15 @@ const CreateRoom = () => {
             required={true}
             type="number"
             defaultValue={votesToSkip}
-            inputProps={{ min: 1, style: { textAlign: 'center' } }}
+            inputProps={{
+              min: 1,
+              style: { textAlign: 'center', color: '#f5f5f5' },
+            }}
             onChange={(e) => {
               setVotesToSkip(e.target.value);
             }}
           />
-          <FormHelperText>
+          <FormHelperText style={{ color: '#f5f5f5' }}>
             <div align="center">VOTES TO SKIP SONG</div>
           </FormHelperText>
         </FormControl>

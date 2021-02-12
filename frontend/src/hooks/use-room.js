@@ -8,6 +8,7 @@ export function useRoomState() {
   const [guestCanPause, setGuestCanPause] = useState(true);
   const [isHost, setIsHost] = useState(false);
   const [settings, setSettings] = useState(false);
+  const [message, setMessage] = useState('');
   const clearRoomCode = () => {
     setRoomCode(null);
   };
@@ -23,6 +24,8 @@ export function useRoomState() {
     clearRoomCode,
     settings,
     setSettings,
+    message,
+    setMessage,
   };
 }
 
