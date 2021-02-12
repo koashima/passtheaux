@@ -133,12 +133,13 @@ const CreateRoom = ({ roomCode, updateCallback }) => {
             <div align="center" style={{ color: '#f5f5f5' }}>
               GUEST CONTROL OF PLAYBACK STATE
             </div>
-          </FormHelperText>
+          </FormHelperText> 
           <RadioGroup
             row
-            defaultValue="true"
+            defaultValue={guestCanPause.toString()}
             onChange={(e) => {
               setGuestCanPause(e.target.value === 'true' ? true : false);
+              
             }}
           >
             <FormControlLabel

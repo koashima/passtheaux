@@ -44,10 +44,8 @@ const Room = (props) => {
       headers: { 'Content-Type': 'application/json' },
     };
     fetch('/api/leave-room', reqOptions).then((_response) => {
-      history.push('/');
-      // quick fix for state reload
       setRoomCode(null);
-      window.location.reload();
+      history.push('/');
     });
   };
 
