@@ -54,8 +54,8 @@ const CreateRoom = ({ roomCode, updateCallback }) => {
     };
     fetch('/api/update-room', requestOptions).then((response) =>
       response.ok
-        ? setMessage('Room updated successfully')
-        : setMessage('Error updating room')
+        ? setMessage('Room updated successfully :)')
+        : setMessage('Error updating room :(')
     );
     updateCallback();
   };
@@ -97,7 +97,10 @@ const CreateRoom = ({ roomCode, updateCallback }) => {
           <Button
             color="secondary"
             variant="contained"
-            onClick={() => setSettings(false)}
+            onClick={() => {
+              setSettings(false);
+              setMessage('');
+            }}
           >
             CLOSE
           </Button>
@@ -117,7 +120,7 @@ const CreateRoom = ({ roomCode, updateCallback }) => {
       <Grid item xs={12}>
         <Collapse
           in={message != ''}
-          style={{ fontSize: 'x-large', color: 'F50057' }}
+          style={{ fontSize: 'x-large', color: '#3F51B5' }}
         >
           {message}
         </Collapse>
@@ -133,13 +136,12 @@ const CreateRoom = ({ roomCode, updateCallback }) => {
             <div align="center" style={{ color: '#f5f5f5' }}>
               GUEST CONTROL OF PLAYBACK STATE
             </div>
-          </FormHelperText> 
+          </FormHelperText>
           <RadioGroup
             row
             defaultValue={guestCanPause.toString()}
             onChange={(e) => {
               setGuestCanPause(e.target.value === 'true' ? true : false);
-              
             }}
           >
             <FormControlLabel
