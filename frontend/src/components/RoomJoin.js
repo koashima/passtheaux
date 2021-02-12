@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
-import { TextField, Button, Grid, Typography } from '@material-ui/core';
+import {
+  TextField,
+  ButtonGroup,
+  Button,
+  Grid,
+  Typography,
+} from '@material-ui/core';
 import { Link, useHistory } from 'react-router-dom';
 
 const RoomJoin = () => {
@@ -60,20 +66,14 @@ const RoomJoin = () => {
         />
       </Grid>
       <Grid item xs={12}>
-        {' '}
-        <Button
-          variant="contained"
-          color="primary"
-          to="/"
-          onClick={handleJoinBtn}
-        >
-          JOIN
-        </Button>
-      </Grid>
-      <Grid item xs={12}>
-        <Button variant="contained" color="secondary" to="/" component={Link}>
-          HOME
-        </Button>
+        <ButtonGroup disableElevation>
+          <Button color="primary" to="/" onClick={handleJoinBtn}>
+            JOIN
+          </Button>
+          <Button color="secondary" to="/" component={Link}>
+            HOME
+          </Button>
+        </ButtonGroup>
       </Grid>
     </Grid>
   );

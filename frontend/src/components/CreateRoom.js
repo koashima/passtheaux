@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useRoom } from '../hooks/use-room';
 import {
+  ButtonGroup,
   Button,
   Grid,
   TextField,
@@ -62,50 +63,35 @@ const CreateRoom = ({ roomCode, updateCallback }) => {
 
   const createButtons = () => {
     return (
-      <>
-        <Grid item xs={12}>
-          <Button
-            color="primary"
-            variant="contained"
-            onClick={handleCreateRoom}
-          >
-            CREATE ROOM
-          </Button>
-        </Grid>
-        <Grid item xs={12}>
-          <Button color="secondary" variant="contained" to="/" component={Link}>
-            BACK
-          </Button>
-        </Grid>
-      </>
+      <ButtonGroup disableElevation variant="contained">
+        <Button color="primary" onClick={handleCreateRoom}>
+          CREATE ROOM
+        </Button>
+
+        <Button color="secondary" to="/" component={Link}>
+          BACK
+        </Button>
+      </ButtonGroup>
     );
   };
 
   const updateButtons = () => {
     return (
-      <>
-        <Grid item xs={12}>
-          <Button
-            color="primary"
-            variant="contained"
-            onClick={handleUpdateRoom}
-          >
-            UPDATE ROOM
-          </Button>
-        </Grid>
-        <Grid item xs={12}>
-          <Button
-            color="secondary"
-            variant="contained"
-            onClick={() => {
-              setSettings(false);
-              setMessage('');
-            }}
-          >
-            CLOSE
-          </Button>
-        </Grid>
-      </>
+      <ButtonGroup disableElevation variant="contained">
+        <Button color="primary" variant="contained" onClick={handleUpdateRoom}>
+          UPDATE ROOM
+        </Button>
+        <Button
+          color="secondary"
+          variant="contained"
+          onClick={() => {
+            setSettings(false);
+            setMessage('');
+          }}
+        >
+          CLOSE
+        </Button>
+      </ButtonGroup>
     );
   };
 

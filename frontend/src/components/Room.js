@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Grid, Button, Typography } from '@material-ui/core';
+import { Grid, ButtonGroup, Button, Typography } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import { useRoom } from '../hooks/use-room';
 import CreateRoom from './CreateRoom';
@@ -51,15 +51,15 @@ const Room = (props) => {
 
   const showSettingsButton = () => {
     return (
-      <Grid item xs={12} align="center">
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => setSettings(true)}
-        >
-          SETTINGS
-        </Button>
-      </Grid>
+      // <Grid item xs={12} align="center">
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() => setSettings(true)}
+      >
+        SETTINGS
+      </Button>
+      // </Grid>
     );
   };
 
@@ -95,14 +95,13 @@ const Room = (props) => {
           HOST: {isHost.toString()}
         </Typography>
       </Grid>
-
-      {isHost ? showSettingsButton() : null}
-
-      <Grid item xs={12}>
-        <Button variant="contained" color="secondary" onClick={handleLeaveRoom}>
+      <br />
+      <ButtonGroup disableElevation color="primary">
+        {isHost ? showSettingsButton() : null}
+        <Button color="secondary" variant="contained" onClick={handleLeaveRoom}>
           LEAVE
         </Button>
-      </Grid>
+      </ButtonGroup>
     </Grid>
   );
 };

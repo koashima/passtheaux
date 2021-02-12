@@ -36,12 +36,16 @@ const Home = () => {
         alignItems="center"
       >
         <Grid item xs={12}>
-          <Typography variant="h2" compact="h2">
+          <Typography variant="h2" gutterBottom={true}>
             PASSTHEAUX
           </Typography>
         </Grid>
         <Grid item xs={12}>
-          <ButtonGroup disableElevation variant="contained" color="primary">
+          <ButtonGroup
+            disableElevation
+            variant="text"
+            size="large"
+          >
             <Button color="primary" to="/join" component={Link}>
               JOIN ROOM
             </Button>
