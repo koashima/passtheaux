@@ -14,9 +14,8 @@ import {
   Collapse,
 } from '@material-ui/core/';
 
-const CreateRoom = () => {
+const CreateRoom = ({ roomCode, updateCallback }) => {
   const {
-    roomCode,
     votesToSkip,
     setVotesToSkip,
     guestCanPause,
@@ -38,7 +37,7 @@ const CreateRoom = () => {
         guest_can_pause: guestCanPause,
       }),
     };
-    fetch('api/create-room', requestOptions)
+    fetch('/api/create-room', requestOptions)
       .then((response) => response.json())
       .then((data) => history.push('/room/' + data.code));
   };
@@ -53,11 +52,12 @@ const CreateRoom = () => {
         code: roomCode,
       }),
     };
-    fetch('api/update-room', requestOptions).then((response) =>
+    fetch('/api/update-room', requestOptions).then((response) =>
       response.ok
         ? setMessage('Room updated successfully')
         : setMessage('Error updating room')
     );
+    updateCallback();
   };
 
   const createButtons = () => {
@@ -99,7 +99,7 @@ const CreateRoom = () => {
             variant="contained"
             onClick={() => setSettings(false)}
           >
-            CANCEL
+            CLOSE
           </Button>
         </Grid>
       </>

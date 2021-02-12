@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Grid, Button, Typography } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import { useRoom } from '../hooks/use-room';
@@ -19,23 +19,24 @@ const Room = (props) => {
   const history = useHistory();
   const roomCode = props.match.params.roomCode;
 
-  const getRoomDetails = () => {
-    fetch('/api/get-room' + '?code=' + roomCode)
-      .then((response) => {
-        if (!response.ok) {
-          setRoomCode(null);
-          history.push('/');
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setVotesToSkip(data.votes_to_skip);
-        setGuestCanPause(data.guest_can_pause);
-        setIsHost(data.is_host);
-      });
-  };
-
-  getRoomDetails();
+  const load = useEffect(() => {
+    const getRoomDetails = async () => {
+      await fetch('/api/get-room' + '?code=' + roomCode)
+        .then((response) => {
+          if (!response.ok) {
+            setRoomCode(null);
+            history.push('/');
+          }
+          return response.json();
+        })
+        .then((data) => {
+          setVotesToSkip(data.votes_to_skip);
+          setGuestCanPause(data.guest_can_pause);
+          setIsHost(data.is_host);
+        });
+    };
+    getRoomDetails();
+  }, []);
 
   const handleLeaveRoom = () => {
     const reqOptions = {
@@ -44,6 +45,9 @@ const Room = (props) => {
     };
     fetch('/api/leave-room', reqOptions).then((_response) => {
       history.push('/');
+      // quick fix for state reload
+      setRoomCode(null);
+      window.location.reload();
     });
   };
 
@@ -62,7 +66,7 @@ const Room = (props) => {
   };
 
   if (settings) {
-    return <CreateRoom />;
+    return <CreateRoom roomCode={roomCode} updateCallback={() => load} />;
   }
 
   return (
