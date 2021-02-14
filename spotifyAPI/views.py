@@ -3,7 +3,7 @@ from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework.response import Response
 from requests import Request, post
-from .utils import update_or_create_user_tokens,
+from .utils import update_or_create_user_tokens, is_spotify_authenticated
 import environ
 
 env = environ.Env(DEBUG=(bool, False))
@@ -56,6 +56,14 @@ def spotify_callback(request, format=None):
 
     if not request.session.exists(request.session.session_key):
         request.session.create()
-    update_or_create_user_tokens(request.session.session_key, access_token, token_type, expires_in, refresh_token)
+    update_or_create_user_tokens(
+        request.session.session_key, access_token, token_type, expires_in, refresh_token
+    )
 
-    return redirect('frontend:')
+    return redirect("frontend:")
+
+
+class IsAuthenticated(APIView):
+    def get(self, request, format=None):
+        is_authenticated = is_spotify_authenticated(self.request.session_key)
+        return Response({"status": is_authenticated}, status=status.HTTP_200_OK)
