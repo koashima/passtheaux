@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Grid, ButtonGroup, Button, Typography } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import { useRoom } from '../hooks/use-room';
@@ -16,9 +16,25 @@ const Room = (props) => {
     settings,
     setSettings,
   } = useRoom();
+  const [spotifyAuth, setSpotifyAuth] = useState(false);
   const history = useHistory();
   const roomCode = props.match.params.roomCode;
 
+  const authenticateSpotify = () => {
+    fetch('/spotify/is-authenticated')
+      .then((response) => response.json())
+      .then((data) => {
+        setSpotifyAuth(data.status);
+        console.log(data.status)
+        if (!data.status) {
+          fetch('/spotify/get-auth-url')
+            .then((response) => response.json())
+            .then((data) => {
+              window.location.replace(data.url);
+            });
+        }
+      });
+  };
   const load = useEffect(() => {
     const getRoomDetails = async () => {
       await fetch('/api/get-room' + '?code=' + roomCode)
@@ -33,9 +49,14 @@ const Room = (props) => {
           setVotesToSkip(data.votes_to_skip);
           setGuestCanPause(data.guest_can_pause);
           setIsHost(data.is_host);
+          {
+            data.is_host ? authenticateSpotify() : null;
+          }
         });
     };
     getRoomDetails();
+    // why is isHost's value still false when i just setIstHost to data.is_host, which is definitely true ?
+    // console.log(isHost);
   }, []);
 
   const handleLeaveRoom = () => {
@@ -51,7 +72,6 @@ const Room = (props) => {
 
   const showSettingsButton = () => {
     return (
-      // <Grid item xs={12} align="center">
       <Button
         variant="contained"
         color="primary"
@@ -59,7 +79,6 @@ const Room = (props) => {
       >
         SETTINGS
       </Button>
-      // </Grid>
     );
   };
 
