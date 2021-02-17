@@ -22,8 +22,8 @@ class AuthURL(APIView):
                 params={
                     "scope": scopes,
                     "response_type": "code",
-                    "redirect_uri": REDIRECT_URI,
-                    "cliend_id": CLIENT_ID,
+                    "redirect_uri": env("REDIRECT_URI"),
+                    "cliend_id": env("CLIENT_ID"),
                 },
             )
             .prepare()
@@ -42,7 +42,7 @@ def spotify_callback(request, format=None):
         data={
             "grant_type": "authorization_code",
             "code": code,
-            "redirect_uri": env("REDIRECT"),
+            "redirect_uri": env("REDIRECT_URI"),
             "client_id": env("CLIENT_ID"),
             "client_secret": env("CLIENT_SECRET"),
         },

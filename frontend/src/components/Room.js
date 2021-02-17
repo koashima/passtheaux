@@ -51,7 +51,6 @@ const Room = (props) => {
 
   const showSettingsButton = () => {
     return (
-      // <Grid item xs={12} align="center">
       <Button
         variant="contained"
         color="primary"
@@ -59,7 +58,6 @@ const Room = (props) => {
       >
         SETTINGS
       </Button>
-      // </Grid>
     );
   };
 
