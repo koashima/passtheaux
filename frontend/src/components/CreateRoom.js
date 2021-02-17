@@ -86,7 +86,8 @@ const CreateRoom = ({ roomCode, updateCallback }) => {
           variant="contained"
           onClick={() => {
             setSettings(false);
-            setMessage('');
+            setMessage('')
+            updateCallback();
           }}
         >
           CLOSE

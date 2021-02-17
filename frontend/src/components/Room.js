@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Grid, ButtonGroup, Button, Typography } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import { useRoom } from '../hooks/use-room';
@@ -11,11 +11,13 @@ const Room = (props) => {
     setVotesToSkip,
     guestCanPause,
     setGuestCanPause,
-    isHost,
-    setIsHost,
+    // isHost,
+    // setIsHost,
     settings,
     setSettings,
   } = useRoom();
+  const [isHost, setIsHost] = useState(false);
+  const [spotifyAuthenticated, setSpotifyAuthenticated] = useState(false);
   const history = useHistory();
   const roomCode = props.match.params.roomCode;
 
@@ -33,11 +35,30 @@ const Room = (props) => {
           setVotesToSkip(data.votes_to_skip);
           setGuestCanPause(data.guest_can_pause);
           setIsHost(data.is_host);
+          if (data.is_host) {
+            authenticateSpotify();
+          }
         });
     };
     getRoomDetails();
-  }, []);
+  }, [isHost]);
+  console.log(isHost);
 
+  function authenticateSpotify() {
+    fetch('/spotify/is-authenticated')
+      .then((response) => response.json())
+      .then((data) => {
+        setSpotifyAuthenticated(data.status);
+        console.log(data.status);
+        if (!data.status) {
+          fetch('/spotify/get-auth-url')
+            .then((response) => response.json())
+            .then((data) => {
+              window.location.replace(data.url);
+            });
+        }
+      });
+  }
   const handleLeaveRoom = () => {
     const reqOptions = {
       method: 'POST',

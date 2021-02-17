@@ -61,8 +61,8 @@ def refresh_spotify_token(session_key):
         data={
             "grant_type": "refresh_token",
             "refresh_token": refresh_token,
-            "client_id": env(CLIENT_ID),
-            "client_secret": env(CLIENT_SECRET),
+            "client_id": env("CLIENT_ID"),
+            "client_secret": env("CLIENT_SECRET"),
         },
     ).json()
 
