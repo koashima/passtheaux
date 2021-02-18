@@ -33,6 +33,7 @@ const MusicPlayer = () => {
         console.log(song);
       });
   }
+
   const songProgress = (song.time / song.duration) * 100;
 
   return (
