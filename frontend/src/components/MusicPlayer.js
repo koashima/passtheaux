@@ -34,6 +34,22 @@ const MusicPlayer = () => {
       });
   }
 
+  function pauseSong() {
+    const reqOptions = {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+    };
+    fetch('/spotify/pause', reqOptions);
+  }
+
+  function playSong() {
+    const reqOptions = {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+    };
+    fetch('/spotify/play', reqOptions);
+  }
+
   const songProgress = (song.time / song.duration) * 100;
 
   return (
@@ -50,7 +66,11 @@ const MusicPlayer = () => {
             {song.artist}
           </Typography>
           <>
-            <IconButton>
+            <IconButton
+              onClick={() => {
+                song.is_playing ? pauseSong() : playSong();
+              }}
+            >
               {song.is_playing ? <PauseIcon /> : <PlayArrowIcon />}
             </IconButton>
             <IconButton>
