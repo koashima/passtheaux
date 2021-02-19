@@ -119,7 +119,7 @@ const CreateRoom = ({ roomCode, updateCallback }) => {
       </Grid>
       <Grid item xs={12}>
         <FormControl component="fieldset">
-          <FormHelperText classes={{ root: 'swag' }}>
+          <FormHelperText >
             <div align="center" style={{ color: '#f5f5f5' }}>
               GUEST CONTROL OF PLAYBACK STATE
             </div>
