@@ -171,4 +171,4 @@ class SkipSong(APIView):
             )
             vote.save()
 
-        return Response({}, status.HTTP_204_NO_CONTENTstatus)
+        return Response({}, status=status.HTTP_204_NO_CONTENT)
