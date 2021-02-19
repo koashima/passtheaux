@@ -50,6 +50,14 @@ const MusicPlayer = () => {
     fetch('/spotify/play', reqOptions);
   }
 
+  function skipSong() {
+    const reqOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+    };
+    fetch('/spotify/skip', reqOptions);
+  }
+
   const songProgress = (song.time / song.duration) * 100;
 
   return (
@@ -73,7 +81,7 @@ const MusicPlayer = () => {
             >
               {song.is_playing ? <PauseIcon /> : <PlayArrowIcon />}
             </IconButton>
-            <IconButton>
+            <IconButton onClick={() => skipSong()}>
               <SkipNextIcon />
             </IconButton>
           </>
