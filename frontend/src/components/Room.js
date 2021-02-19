@@ -3,7 +3,7 @@ import { Grid, ButtonGroup, Button, Typography } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import { useRoom } from '../hooks/use-room';
 import CreateRoom from './CreateRoom';
-
+import MusicPlayer from './MusicPlayer';
 const Room = (props) => {
   const {
     setRoomCode,
@@ -17,6 +17,7 @@ const Room = (props) => {
     setSettings,
   } = useRoom();
   const [isHost, setIsHost] = useState(false);
+  const [song, setSong] = useState({});
   const [spotifyAuthenticated, setSpotifyAuthenticated] = useState(false);
   const history = useHistory();
   const roomCode = props.match.params.roomCode;
@@ -41,6 +42,7 @@ const Room = (props) => {
         });
     };
     getRoomDetails();
+    getCurrentSong();
   }, [isHost]);
   console.log(isHost);
 
@@ -57,6 +59,20 @@ const Room = (props) => {
               window.location.replace(data.url);
             });
         }
+      });
+  }
+
+  function getCurrentSong() {
+    fetch('/spotify/current-song')
+      .then((response) => {
+        if (!response.ok) {
+          return {};
+        } else {
+          return response.json();
+        }
+      })
+      .then((data) => {
+        setSong(data);
       });
   }
   const handleLeaveRoom = () => {
@@ -99,28 +115,19 @@ const Room = (props) => {
           CODE: {roomCode}
         </Typography>
       </Grid>
+      <MusicPlayer />
       <Grid item xs={12}>
-        <Typography variant="h4" component="h4">
-          VOTES TO SKIP: {votesToSkip}
-        </Typography>
+        <ButtonGroup disableElevation color="primary">
+          {isHost ? showSettingsButton() : null}
+          <Button
+            color="secondary"
+            variant="contained"
+            onClick={handleLeaveRoom}
+          >
+            LEAVE
+          </Button>
+        </ButtonGroup>{' '}
       </Grid>
-      <Grid item xs={12}>
-        <Typography variant="h4" component="h4">
-          GUEST CAN PAUSE: {guestCanPause.toString()}
-        </Typography>
-      </Grid>
-      <Grid item xs={12}>
-        <Typography variant="h4" component="h4">
-          HOST: {isHost.toString()}
-        </Typography>
-      </Grid>
-      <br />
-      <ButtonGroup disableElevation color="primary">
-        {isHost ? showSettingsButton() : null}
-        <Button color="secondary" variant="contained" onClick={handleLeaveRoom}>
-          LEAVE
-        </Button>
-      </ButtonGroup>
     </Grid>
   );
 };

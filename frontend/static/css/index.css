@@ -1,7 +1,7 @@
 html,
 body {
   height: 100%;
-  margin: 0 auto;
+  margin: 0;
   padding: 0;
   color: #f5f5f5;
 }
@@ -22,7 +22,6 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  /* justify-content: center; */
 }
 
 .MuiInput-underline:before {
