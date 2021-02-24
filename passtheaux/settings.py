@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 import environ
-import django_heroku
+import django_on_heroku
 env = environ.Env(
     DEBUG=(bool, False)
 )
@@ -45,8 +45,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'api.apps.ApiConfig',
     'rest_framework',
+    'api.apps.ApiConfig',
     'frontend.apps.FrontendConfig',
     'spotifyAPI.apps.SpotifyapiConfig',
 ]
