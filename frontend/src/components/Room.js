@@ -115,9 +115,16 @@ const Room = (props) => {
           CODE: {roomCode}
         </Typography>
       </Grid>
-      <MusicPlayer />
       <Grid item xs={12}>
-        <ButtonGroup disableElevation color="primary">
+        <MusicPlayer />
+      </Grid>
+      <Grid item xs={12}>
+        <ButtonGroup
+          disableElevation
+          variant="contained"
+          orientation="vertical"
+          size="large"
+        >
           {isHost ? showSettingsButton() : null}
           <Button
             color="secondary"
@@ -126,7 +133,7 @@ const Room = (props) => {
           >
             LEAVE
           </Button>
-        </ButtonGroup>{' '}
+        </ButtonGroup>
       </Grid>
     </Grid>
   );

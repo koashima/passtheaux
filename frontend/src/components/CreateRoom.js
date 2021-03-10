@@ -63,12 +63,17 @@ const CreateRoom = ({ roomCode, updateCallback }) => {
 
   const createButtons = () => {
     return (
-      <ButtonGroup disableElevation variant="contained">
-        <Button color="primary" onClick={handleCreateRoom}>
+      <ButtonGroup
+        disableElevation
+        variant="contained"
+        orientation="vertical"
+        size="large"
+      >
+        <Button color="primary" variant="contained" onClick={handleCreateRoom}>
           CREATE ROOM
         </Button>
 
-        <Button color="secondary" to="/" component={Link}>
+        <Button color="secondary" to="/" variant="contained" component={Link}>
           BACK
         </Button>
       </ButtonGroup>
@@ -77,16 +82,15 @@ const CreateRoom = ({ roomCode, updateCallback }) => {
 
   const updateButtons = () => {
     return (
-      <ButtonGroup disableElevation variant="contained">
-        <Button color="primary" variant="contained" onClick={handleUpdateRoom}>
+      <ButtonGroup disableElevation variant="contained" orientation="vertical" size="large">
+        <Button color="primary" onClick={handleUpdateRoom}>
           UPDATE ROOM
         </Button>
         <Button
           color="secondary"
-          variant="contained"
           onClick={() => {
             setSettings(false);
-            setMessage('')
+            setMessage('');
             updateCallback();
           }}
         >
@@ -119,7 +123,7 @@ const CreateRoom = ({ roomCode, updateCallback }) => {
       </Grid>
       <Grid item xs={12}>
         <FormControl component="fieldset">
-          <FormHelperText >
+          <FormHelperText>
             <div align="center" style={{ color: '#f5f5f5' }}>
               GUEST CONTROL OF PLAYBACK STATE
             </div>

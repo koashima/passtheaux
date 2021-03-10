@@ -61,12 +61,17 @@ const RoomJoin = () => {
           placeholder="ENTER ROOM CODE"
           value={state.roomCode}
           helperText={state.error}
-          variant="outlined"
+          variant="filled"
           onChange={handleCodeChange}
         />
       </Grid>
       <Grid item xs={12}>
-        <ButtonGroup disableElevation>
+        <ButtonGroup
+          disableElevation
+          variant="contained"
+          orientation="vertical"
+          size="large"
+        >
           <Button color="primary" to="/" onClick={handleJoinBtn}>
             JOIN
           </Button>
