@@ -30,7 +30,7 @@ const MusicPlayer = () => {
       })
       .then(async (data) => {
         await setSong(data);
-        console.log(song);
+
       });
   }
 

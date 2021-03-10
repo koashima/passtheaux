@@ -7,18 +7,14 @@ import MusicPlayer from './MusicPlayer';
 const Room = (props) => {
   const {
     setRoomCode,
-    votesToSkip,
     setVotesToSkip,
-    guestCanPause,
     setGuestCanPause,
-    // isHost,
-    // setIsHost,
     settings,
     setSettings,
   } = useRoom();
   const [isHost, setIsHost] = useState(false);
-  const [song, setSong] = useState({});
-  const [spotifyAuthenticated, setSpotifyAuthenticated] = useState(false);
+  const [_song, setSong] = useState({});
+  const [_spotifyAuthenticated, setSpotifyAuthenticated] = useState(false);
   const history = useHistory();
   const roomCode = props.match.params.roomCode;
 
@@ -44,14 +40,12 @@ const Room = (props) => {
     getRoomDetails();
     getCurrentSong();
   }, [isHost]);
-  console.log(isHost);
 
   function authenticateSpotify() {
     fetch('/spotify/is-authenticated')
       .then((response) => response.json())
       .then((data) => {
         setSpotifyAuthenticated(data.status);
-        console.log(data.status);
         if (!data.status) {
           fetch('/spotify/get-auth-url')
             .then((response) => response.json())
@@ -115,7 +109,7 @@ const Room = (props) => {
           CODE: {roomCode}
         </Typography>
       </Grid>
-      <Grid item xs={12}>
+      <Grid item sm={6}>
         <MusicPlayer />
       </Grid>
       <Grid item xs={12}>
